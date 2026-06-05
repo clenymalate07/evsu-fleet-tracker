@@ -91,6 +91,7 @@ def redirect_dashboard(request):
 # MANAGER DASHBOARD
 
 @login_required
+@role_required(['MANAGER'])
 def manager_dashboard(request):
     
     total_asset_value = Asset.objects.aggregate(
@@ -867,32 +868,3 @@ def export_assets_pdf(request):
 
     return response
 
-@login_required
-def staff_dashboard(request):
-
-    if request.user.role != 'STAFF':
-        return HttpResponse("ACCESS DENIED")
-
-    total_assets = Asset.objects.count()
-
-    pending_requests = MaintenanceRequest.objects.filter(
-        status='PENDING'
-    ).count()
-
-    approved_requests = MaintenanceRequest.objects.filter(
-        status='APPROVED'
-    ).count()
-
-    context = {
-
-        'total_assets': total_assets,
-        'pending_requests': pending_requests,
-        'approved_requests': approved_requests,
-
-    }
-
-    return render(
-        request,
-        'dashboard/staff_dashboard.html',
-        context
-    )
