@@ -27,10 +27,13 @@ SECRET_KEY = 'django-insecure-f@)6j9)3h#kie-zhvbqefg=6(u0*3ivl00uxvbn-&mouoi$0=b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    "evsu-fleet-tracker-production.up.railway.app",
+]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.railway.app'
+    'https://*.railway.app',
+    "https://evsu-fleet-tracker-production.up.railway.app",
 ]
 
 # Application definition
